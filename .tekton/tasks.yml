@@ -3,16 +3,16 @@ kind: Task
 metadata:
   name: cleanup
 spec:
-  description: This task will clean the workspace.
+  description: This task will clean up a workspace by deleting all the files.
   workspaces:
     - name: source
   steps:
     - name: remove
       image: alpine:3
-      env: 
+      env:
         - name: WORKSPACE_SOURCE_PATH
-          value: $(workspaves.source.path)
-      workingDir: $(workspaves.source.path)
+          value: $(workspaces.source.path)
+      workingDir: $(workspaces.source.path)
       securityContext:
         runAsNonRoot: false
         runAsUser: 0
@@ -48,7 +48,7 @@ spec:
   steps:
     - name: nosetests
       image: python:3.9-slim
-      workingDir: $(workspaves.source.path)
+      workingDir: $(workspaces.source.path)
       script: |
         #!/bin/bash
         set -e
